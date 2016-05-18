@@ -1,0 +1,40 @@
+
+server:
+  port: 8083
+
+default:
+  bake:
+    account: default
+  securityGroups:
+  vpc:
+    securityGroups:
+front50:
+  baseUrl: http://LOCALIP:8080
+tide:
+  enabled: false
+  baseUrl: http://LOCALIP:8090
+oort:
+  baseUrl: http://LOCALIP:7002
+mort:
+  baseUrl: http://LOCALIP:7002
+kato:
+  baseUrl: http://LOCALIP:7002
+echo:
+  enabled: true
+  baseUrl: http://LOCALIP:8089
+bakery:
+  baseUrl: http://LOCALIP:8087
+  # Rosco exposes more endpoints than Netflix's internal bakery. This disables
+  # the use of those endpoints.
+  roscoApisEnabled: true
+
+redis:
+  connection: redis://LOCALIP:6379
+
+igor:
+  enabled: false
+  baseUrl: http://LOCALIP:8088
+
+tasks:
+  useWaitForAllNetflixAWSInstancesDownTask: false
+

@@ -1,0 +1,238 @@
+aws:
+  enabled: true
+  defaultAssumeRole: role/spinnakerManaged
+  defaultRegions:
+    - name: us-west-2
+  accounts:
+    - name: default
+      accountId: AWSACCT
+      regions:
+        - name: us-west-2
+server:
+  port: 7002
+  ssl:
+    enabled: false
+
+redis:
+  connection: redis://LOCALIP:6379
+
+services:
+  front50:
+    baseUrl: http://LOCALIP:8080
+
+swagger:
+  enabled: true
+  title: clouddriver
+  description: Cloud read and write operations
+  contact: admin@host.net
+  patterns:
+    - .*elasticIps.*
+    - .*cache.*
+    - .*instance.*
+    - .*search.*
+    - .*security.*
+    - .*vpcs.*
+    - .*credentials.*
+    - .*subnets.*
+    - .*ops.*
+    - .*task.*
+    - .*applications.*
+    - .*aws.*
+    - .*azure.*
+    - .*gce.*
+    - .*kubernetes.*
+    - .*instances.*
+    - .*reports.*
+
+azure:
+  enabled: ${AZURE_ENABLED:false}
+  defaults:
+
+  accounts:
+    - name: default
+      clientId: ${AZURE_CLIENT_ID}
+      appKey: ${AZURE_APPKEY}
+      tenantId: ${AZURE_TENANT_ID}
+      subscriptionId: ${AZURE_SUBSCRIPTION_ID}
+      regions: ["westus", "eastus"]
+
+google:
+  enabled: false
+  defaults:
+    instanceTypeDisks:
+    - instanceType: n1-standard-1
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: n1-standard-2
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: n1-standard-4
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: n1-standard-8
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: n1-standard-16
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: n1-standard-32
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+      - type: local-ssd
+        sizeGb: 375
+    - instanceType: f1-micro
+      supportsLocalSSD: false
+      disks:
+      - type: pd-standard
+        sizeGb: 10
+    - instanceType: g1-small
+      supportsLocalSSD: false
+      disks:
+      - type: pd-standard
+        sizeGb: 10
+    - instance-type: n1-highmem-2
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highmem-4
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highmem-8
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highmem-16
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highmem-32
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highcpu-2
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highcpu-4
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highcpu-8
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highcpu-16
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: n1-highcpu-32
+      disks:
+      - type: pd-ssd
+        sizeGb: 10
+      - type: local-ssd
+        sizeGb: 375
+      - type: local-ssd
+        sizeGb: 375
+    - instance-type: default
+      disks:
+      - type: pd-standard
+        sizeGb: 10
+
+dockerRegistry:
+  enabled: false
+
+kubernetes:
+  enabled: false
+
+docker:
+  enabled: ${DOCKER_ENABLED:false}
+
+titan:
+  enabled: ${TITAN_ENABLED:false}
+
+cf:
+  enabled: ${providers.cf.enabled:false}
+  accounts:
+    - name: ${providers.cf.primaryCredentials.name}
+      api: ${providers.cf.primaryCredentials.api}
+      console: ${providers.cf.primaryCredentials.console}
+      org: ${providers.cf.defaultOrg}
+      space: ${providers.cf.defaultSpace}
+      username: ${cf.account.name}
+      password: ${cf.account.password}
+
+---
+
+spring:
+  profiles: prod
+
+# example https configuration for client auth to services:
+#default:
+  # legacyServerPort is a non-ssl listener when the main listener has SSL enabled
+  #legacyServerPort: 8501
+
+#server:
+  #ssl:
+    # enabled: true
+    # keyStore: clouddriver-keystore.p12
+    # keyStoreType: PKCS12
+    # keyStorePassword: changeme
+    # trustStore: services-truststore.p12
+    # trustStoreType: PKCS12
+    # trustStorePassword: changeme
+    # clientAuth: need
+
+
+---
+
+# local profile is activated by default when running the application - override values here for local development
+#  for production, set spring.profiles.active to select the appropriate profile for your environment
+spring:
+  profiles: local
+
+# an AWSCredentialsProvider that obtains session credentials via SSH through a bastion instance (useful for local development):
+#bastion:
+#  enabled: false
+#  port: 22
+#  proxyRegion: us-west-1
+#  proxyCluster: my-credentials-cluster
+

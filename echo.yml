@@ -1,0 +1,63 @@
+
+server:
+  port: 8089
+
+redis:
+  connection: redis://LOCALIP:6379
+
+cassandra:
+  embedded: false
+  host: LOCALIP
+  cluster: 'Test Cluster'
+  keyspace: echo
+
+spinnaker:
+  cassandra:
+    enabled: true
+    embedded: false
+    host: LOCALIP
+    cluster: 'Test Cluster'
+    keyspace: echo
+    name: global
+  baseUrl: 0.0.0.0:8089
+front50:
+  baseUrl: http://LOCALIP:8080
+
+orca:
+  baseUrl: http://LOCALIP:8083
+
+igor:
+  enabled: true
+  baseUrl: http://LOCALIP:8088
+
+endpoints.health.sensitive: false
+
+slack:
+  enabled: ${services.echo.notifications.slack.enabled:false}
+  token: ${services.echo.notifications.slack.token}
+
+mail:
+  enabled: ${services.echo.notifications.mail.enabled:false}
+  host: ${services.echo.notifications.mail.host}
+  from: ${services.echo.notifications.mail.fromAddress}
+
+hipchat:
+  enabled: ${services.echo.notifications.hipchat.enabled:false}
+  baseUrl: ${services.echo.notifications.hipchat.url}
+  token: ${services.echo.notifications.hipchat.token}
+
+twilio:
+  enabled: ${services.echo.notifications.sms.enabled:false}
+  baseUrl: ${services.echo.notifications.sms.url:https://api.twilio.com/}
+  account: ${services.echo.notifications.sms.account}
+  token: ${services.echo.notifications.sms.token}
+  from: ${services.echo.notifications.sms.from}
+
+scheduler:
+  enabled: true
+  threadPoolSize: 20
+  triggeringEnabled: true
+  pipelineConfigsPoller:
+    enabled: true
+    pollingIntervalMs: 30000
+

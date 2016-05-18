@@ -1,0 +1,43 @@
+server:
+  port: 8085
+
+redis:
+  connection: redis://LOCALIP:6379
+
+rush:
+  polling:
+    orphanedExecutionTimeoutMinutes: 30
+    runningExecutionUpdateIntervalSeconds: 15
+    canceledExecutionUpdateIntervalSeconds: 30
+  jobs:
+    local:
+      timeoutMinutes: 10
+
+cassandra:
+  embedded: false
+  host: LOCALIP
+  cluster: 'Test Cluster'
+  keyspace: rush
+
+spinnaker:
+  cassandra:
+    enabled: true
+    embedded: false
+    host: LOCALIP
+    cluster: spinnaker
+    keyspace: rush
+    name: global
+
+netflix:
+  appinfo:
+    name: 'spinnaker-rush'
+
+swagger:
+  enabled: true
+  title: Spinnaker Rush API
+  description:
+  contact:
+  patterns:
+    - .*/ops.*
+    - .*/tasks.*
+

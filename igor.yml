@@ -1,0 +1,20 @@
+server:
+  port: 8088
+
+jenkins:
+  enabled: true
+  masters:
+    - name: jenkins
+      address: JENKINSHOST
+      username: JENKINSUSER
+      password: JENKINSPASSWORD
+redis:
+  connection: redis://LOCALIP:6379
+  
+# Igor depends on Clouddriver and Echo. These are normally configured
+# in spinnaker[-local].yml (if present), otherwise, uncomment this.
+services:
+  clouddriver:
+    baseUrl: http://LOCALIP:7002
+  echo:
+    baseUrl: http://LOCALIP:8089
